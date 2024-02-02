@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Casper - by Prepaiz</title>
+	
+	<script src="/Casper/lib/vue.js"></script>
+	<script src="/Casper/lib/vue-router.min.js"></script>
+	<script src="/Casper/lib/vuetify.min.js"></script>
+	<script src="/Casper/lib/axios.min.js"></script>
+	<script src="/Casper/lib/crypto-js.min.js"></script>
+	<script src="/Casper/lib/vue-i18n.min.js"></script>
+	<script src="/Casper/lib/VueBlobJsonCsv.umd.min.js"></script>
+	<script src="/Casper/lib/v-flag-icons@1.0.3.js"></script>
+	
+	<script type="application/javascript" src="/Casper/views/Home.js"></script>
+	<script type="application/javascript" src="/Casper/views/MySettings.js"></script>
+	<script type="application/javascript" src="/Casper/views/settings/Users.js"></script>
+	<script type="application/javascript" src="/Casper/views/settings/Groups.js"></script>
+	<script type="application/javascript" src="/Casper/views/settings/Signs.js"></script>
+	<script type="application/javascript" src="/Casper/views/settings/Products.js"></script>
+	<script type="application/javascript" src="/Casper/views/settings/Offers.js"></script>
+	<script type="application/javascript" src="/Casper/views/settings/Tsp.js"></script>
+	<script type="application/javascript" src="/Casper/views/dlc/DlcSous.js"></script>
+	<script type="application/javascript" src="/Casper/views/dlc/DlcActiv.js"></script>
+	<script type="application/javascript" src="/Casper/views/search/Autos.js"></script>
+	<script type="application/javascript" src="/Casper/tools/qbe.js"></script>
+	<script type="application/javascript" src="/Casper/views/search/SearchCards.js"></script>
+	<script type="application/javascript" src="/Casper/views/search/Cards.js"></script>
+	<script type="application/javascript" src="/Casper/views/reconc/Rappro.js"></script>
+		
+	<script src="/Casper/lib/auth.js"></script>
+	<script src="/Casper/lang/lang_fr.js"></script>
+	<script src="/Casper/lang/lang_en.js"></script>
+	<script src="/Casper/lang/lang_pt.js"></script>
+	<script src="/Casper/lang/lang_es.js"></script>
+	<script src="/Casper/lang/lang_vn.js"></script>
+	<script src="/Casper/lang/lang.js"></script>
+	<script src="/Casper/lib/Router.js"></script>
+	
+	<link rel="icon" id="favIcon" type="image/x-icon" href="/Casper/img/favicon.ico">
+	
+	<link rel="stylesheet" type="text/css" href="/Casper/css/font-awesome_6.2.1.min.css" >
+	<link rel="stylesheet" type="text/css" href="/Casper/css/materialsGoogle.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/montserratGoogle.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/styles.5b9620f6141c176bd318.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/home.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/vuetify.min.css" >
+	<link rel="stylesheet" type="text/css" href="/Casper/css/rectangular.min.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/materialdesignicons.min.css">
+
+</head>
+<body>
+
+	<div id="appHome">
+		<v-app id="myApp">
+		<div class="dashboardLayout">
+			<div class="sidebar">
+				<div class="header">
+					<a href="home.html">
+					<img id="logo" class="logo" v-if="version.env" :src="'/Casper/img/CasperLogo-'+version.env+'.png'" alt="Bimpli">
+					</a>
+				</div>
+				<div class="menu">
+<!-- 					<ul class="navlink_menu"> -->
+					
+					<v-treeview :items="menus" open-on-click expand-icon="" dense hoverable>
+						<template v-slot:label="{item}">
+                            
+                            <a v-if="item.uri" class="navlink" style="text-decoration: none;"> 
+	                            <span><v-icon  >{{item.img}}</v-icon></span>
+	                            <span class="navlink_text"><router-link :to="item.uri" v-if="item.uri" @click.native="changeMenu(item)">{{$t(item.name)}}</router-link></span>
+	                            <span style="width:100px; text-align:right">
+	                            	<v-icon color="blue" size=18 @click="loveIt(item)" v-if="item.favorite==0">mdi-star-outline</v-icon>
+	                            	<v-icon color="blue" size=18 @click="loveIt(item)" v-if="item.favorite==1">mdi-star</v-icon>
+<!-- 	                            	<v-rating color="blue" empty-icon="mdi-star-outline" full-icon="mdi-star" hover length=1 size=18 :value="item.favorite" @click="loveIt(item)"></v-rating> -->
+	                            </span>
+                            </a>
+                            <a v-else class="navlink " > <!-- navlink_activ -->
+	                            <span><v-icon  >{{item.img}}</v-icon></span>
+	                            <span class="navlink_text">{{$t(item.name)}}</span>
+                            </a>
+					    </template>
+                    </v-treeview>
+				</div>
+				<div class="mentions" v-if="version.version!==-1" >
+					<v-chip class="ma-2" label small color="#E1F5FE">{{version.env}} {{version.version}}-{{version.base}} {{version.buildDate}}</v-chip>
+				</div>
+			</div>
+			<div class="navbar">
+			
+				            <a class="navlink" style="text-decoration: none;" v-for="item in loved"> 
+	                            <span><v-icon  >{{item.img}}</v-icon></span>
+	                            <span class="navlink_text"><router-link :to="item.uri" v-if="item.uri" @click.native="changeMenu(item)">{{$t(item.name)}}</router-link></span>
+                            </a>
+			
+			<div style="margin-left: auto; margin-right: 0;">					
+					
+					
+					
+					
+  <v-container fluid style="height: 50px" >
+    <v-row justify="center">
+      <v-menu bottom min-width="200px" rounded offset-y >
+        <template v-slot:activator="{ on }">
+          <v-btn icon x-large v-on="on" >
+            <v-avatar color="blue" size="38" >
+              <span class="white--text text-h6">{{user.initial}}</span>
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-list-item-content class="justify-center">
+            <div class="mx-auto text-center">
+              <v-avatar color="blue" >
+                <span class="white--text text-h6">{{user.initial}}</span>
+              </v-avatar>
+              <h5>{{user.fullname}}</h5>
+              <p class="text-caption mt-1">{{user.email}}</p>
+              <table class="center">
+              	<tr>
+              		<td @click="changeLang('fr')" style="padding-right: 5px;"><vf-icon country="fr" /></td>
+              		<td @click="changeLang('en')" style="padding-right: 5px;"><vf-icon country="gb" /></td>
+              		<td @click="changeLang('es')" style="padding-right: 5px;"><vf-icon country="mx" /></td>
+              		<td @click="changeLang('pt')" style="padding-right: 5px;"><vf-icon country="br" /></td>
+              		<td @click="changeLang('vn')" style="padding-right: 5px;"><vf-icon country="vn" /></td>
+              	</tr>
+              </table>
+              <v-divider class="my-3"></v-divider>
+              <v-btn depressed rounded text>
+              	<router-link to="/mySettings" >{{ $t('button.settings') }}</router-link>
+              </v-btn>
+              <v-divider class="my-3"></v-divider>
+              <v-btn depressed rounded text @click="logout">{{ $t('button.logout') }}</v-btn>
+            </div>
+          </v-list-item-content>
+        </v-card>
+      </v-menu>
+    </v-row>
+  </v-container>					
+					
+					
+				</div>
+			</div>
+			<div class="main">
+				<div class="background_main">
+					<div class="content"><router-view></router-view>
+					</div>
+				</div>
+			</div>
+		</div>
+		</v-app>
+	</div>
+	
+	<script>
+
+	const i18n = new VueI18n({
+	  locale: navigator.language,
+// 	  locale: 'en',
+	  messages,
+	})
+	
+	Vue.use(vFlagIcons);
+	Vue.use(VueBlobJsonCsv.default);
+	
+        var app = new Vue({
+            el: "#appHome",
+//             vueflags: vueflags,
+        	i18n: i18n,
+            router: router,
+            vuetify: new Vuetify(),
+            data: {
+                user:{},
+                ariane: [],
+                message:"",
+                menus:[],
+                loved: [],
+                version: {
+                	version:-1
+                }
+            },
+            methods: {
+                logout: function(){
+                	logoutUser();
+                     window.location.href="login.html";
+                },
+                changeMenu: function(item){
+
+                },
+                changeLang: function(lang){
+                	this.$i18n.locale=lang;
+                },
+                loveIt: function(item){
+                	if (item.favorite==1) {
+                		
+                	    axios.post('/Casper/v1/context/loved', 
+                	    		{
+                	    			view: item.name,
+                	    			action:0
+                	    		},
+                    	    	{ headers: {'Authorization': 'Bearer '+getAuthToken()} }
+                    	    )
+                  		.then((res) => {
+                    		item.favorite=0;
+                    		this.loved.splice(this.loved.indexOf(item), 1);                  			
+                  		})
+                  		.catch((error) => {
+                  		  console.error(error);
+                  		});
+                		
+                		
+
+                	}
+                	else {
+						
+                	    axios.post('/Casper/v1/context/loved', 
+                	    		{
+                	    			view: item.name,
+                	    			action:1
+                	    		},
+                    	    	{ headers: {'Authorization': 'Bearer '+getAuthToken()} }
+                    	    )
+                  		.then((res) => {
+                    		item.favorite=1;
+                    		this.loved.push(item);
+                  		})
+                  		.catch((error) => {
+                  		  console.error(error);
+                  		});
+                	}
+                }
+            	
+            },
+            beforeMount(){
+                if (!isLoggedIn()) {
+                	this.logout();
+                }
+                else {
+                	
+                	axios.get('/Casper/v1/context/version', {
+              		  headers: {
+              		    'Authorization': 'Bearer '+getAuthToken()
+              		  }
+              		})
+              		.then((res) => { this.version=res.data.element; })
+              		.catch((error) => { this.version={version:-1}; });
+                	
+                	axios.get('/Casper/v1/context/user', {
+                		  headers: {
+                		    'Authorization': 'Bearer '+getAuthToken()
+                		  }
+                		})
+                		.then((res) => {
+                			this.user=res.data.user;
+                			
+                			if (!this.user.checkSecretQuestion) {
+                				router.push('/mySettings')
+                			} else if (this.user.checkSecretAuth) {
+                				router.push('/mySettings')
+                			}
+                			
+                			else {
+                    			this.menus=res.data.menu;
+	                		  	for (const itemMenu of this.menus) {
+	                          		 	for (const child of itemMenu.children) {
+	                          		 		localStorage.setItem(child.id, child.privilege);
+	                          		 		if (child.favorite==1) {
+	                          		 			this.loved.push(child);
+	                          		 		}
+	                          		  	}
+	                			}
+                			}
+                			
+                			
+                		})
+                		.catch((error) => {
+                		  console.error(error);
+                		});
+                	
+					
+                }
+            }
+        });
+        
+
+        
+    </script>
+    
+</body>
+
+</html>

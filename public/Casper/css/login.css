@@ -1,0 +1,266 @@
+    
+body {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  margin: 0px;
+} 
+  
+#login-container {
+    background-image:url(/Casper/img/bg_login.png);
+    height: 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    #padding: 10% !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    margin-right: auto;
+    margin-left: auto;
+    box-sizing: border-box;
+}
+
+#middle-container {
+    display: flex !important;
+    width: 100% !important;
+    -webkit-box-pack: center !important;
+    justify-content: center !important;
+    -webkit-box-orient: vertical !important;
+    flex-direction: column !important;
+    -webkit-box-align: center !important;
+    align-items: center !important;
+    padding-top: 95.4px
+}
+
+#logo {
+    width: 250px;
+    box-sizing: border-box;
+    margin-bottom: .5rem !important;
+    border-style: none;
+}
+
+.card {
+    padding: 25px;
+    border: 0;
+    border-radius: 4px;
+    min-width: 400px;
+    margin-top: 1.5rem !important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    position: relative;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.title {
+    box-sizing: border-box;
+    color: rgb(34, 38, 41);
+    display: block;
+    font-family: Montserrat;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 42px;
+    overflow-wrap: break-word;
+    text-align: left
+}
+
+.instructions {
+    box-sizing: border-box;
+    color: rgb(100, 103, 105);
+    display: block;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    overflow-wrap: break-word;
+    text-align: left
+}
+
+
+label {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #000;
+    font-family: Montserrat !important;
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+input {
+    background-clip: padding-box;
+    background-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(167, 168, 169);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(167, 168, 169);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgb(167, 168, 169);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(167, 168, 169);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+    color: rgb(73, 80, 87);
+    display: block;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 400;
+    height: 56px;
+    line-height: 21px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    overflow-wrap: break-word;
+    overflow-x: visible;
+    overflow-y: visible;
+    padding-bottom: 17px;
+    padding-left: 17px;
+    padding-right: 17px;
+    padding-top: 17px;
+    text-align: start;
+    transition-delay: 0s, 0s;
+    transition-duration: 0.15s, 0.15s;
+    transition-property: border-color, box-shadow;
+    transition-timing-function: ease-in-out, ease-in-out;
+    width: 380px
+}
+
+input#password {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    flex-basis: 0%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    line-height: 30px;
+    min-width: 0px;
+    position: relative;
+    width: 329px;
+    -moz-box-flex: 1
+}
+
+.eye {
+min-width: 52px;
+}
+
+
+button {
+    appearance: button;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: Montserrat;
+    height: 56px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    overflow-wrap: break-word;
+    overflow-x: visible;
+    overflow-y: visible;
+    padding-bottom: 17px;
+    padding-left: 17px;
+    padding-right: 17px;
+    padding-top: 17px;
+    text-align: center;
+    text-decoration-line: none;
+    text-decoration-style: solid;
+    text-decoration-thickness: auto;
+    text-transform: none;
+    transition-delay: 0s, 0s, 0s, 0s;
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    user-select: none;
+    vertical-align: middle;
+}
+
+
+button.btn-light {
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(167, 168, 169);
+    border-bottom-left-radius: 0px;
+    border-left-color: rgb(167, 168, 169);
+    border-right-color: rgb(167, 168, 169);
+    border-top-color: rgb(167, 168, 169);
+    border-top-left-radius: 0px;
+    color: rgb(73, 80, 87);
+    display: flex;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    position: relative;
+    text-decoration-color: rgb(73, 80, 87);
+    white-space: nowrap;
+    z-index: 2;
+    -moz-box-align: center;
+    padding-bottom: 17px;
+    padding-left: 17px;
+    padding-right: 17px;
+    padding-top: 17px;
+}
+
+button.btn-dark {
+    background-color: rgb(0, 105, 217);
+    border-bottom-color: rgb(0, 98, 204);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-left-color: rgb(0, 98, 204);
+    border-right-color: rgb(0, 98, 204);
+    border-top-color: rgb(0, 98, 204);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: rgb(255, 255, 255);
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    text-decoration-color: rgb(255, 255, 255);
+    width: 380px
+}
+
+ 
+.help {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0072ce;
+    margin-bottom: 0.5rem;
+}
+ 

@@ -1,0 +1,112 @@
+
+const AUTH_TOKEN_KEY = 'authToken';
+const AUTH_LOGIN_KEY = 'authLogin';
+const AUTH_INFO_KEY = 'authInformation';
+
+function generateTestToken() {
+    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+}
+
+function logoutUser() {
+    clearAuthToken();
+    clearAuthLogin();
+}
+
+function setAuthInformation(token, login) {
+	
+    localStorage.setItem(AUTH_INFO_KEY, {
+    	"token":token,
+    	"login":login,
+    	"exp":getTokenExpirationDate(token)
+    });
+}
+
+function setAuthToken(token) {
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+}
+
+function setAuthLogin(login) {
+    localStorage.setItem(AUTH_LOGIN_KEY, login);
+}
+
+function getAuthToken() {
+	
+
+	time = getExpirationTimeInSecond(localStorage.getItem(AUTH_TOKEN_KEY));
+
+	if (time<1000) {
+		
+        axios({
+            method: 'post',
+            url: 'v1/auth/refresh',
+            data: {
+                    login : localStorage.getItem(AUTH_LOGIN_KEY),
+                    token : localStorage.getItem(AUTH_TOKEN_KEY),
+                    date : Date.now()
+            }
+        })
+        .then(data=>setAuthToken(data.data.jeton));
+		
+	}
+	
+	
+	
+	
+    return localStorage.getItem(AUTH_TOKEN_KEY);    
+}
+
+function clearAuthToken() {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+}
+
+function clearAuthLogin() {
+    localStorage.removeItem(AUTH_LOGIN_KEY);
+}
+
+function isLoggedIn() {
+    let authToken = getAuthToken();
+    return !!authToken && !isTokenExpired(authToken);
+}
+
+function getUserInfo() {
+    if (isLoggedIn()) {
+//        return decode(getAuthToken())
+    }
+}
+
+function getTokenExpirationDate(encodedToken) {
+    
+    if (!encodedToken) {
+        return null
+    }
+    
+    const jwtPayload = JSON.parse(window.atob(encodedToken.split('.')[1]));
+    if (!jwtPayload.exp) {
+        return null
+    }
+  
+    let date = new Date(0)
+    date.setUTCSeconds(jwtPayload.exp)
+  
+    return date
+}
+
+function getExpirationTimeInSecond(encodedToken) {
+    
+    if (!encodedToken) {
+        return null
+    }
+    
+    const jwtPayload = JSON.parse(window.atob(encodedToken.split('.')[1]));
+    if (!jwtPayload.exp) {
+        return null
+    }
+    
+    return (jwtPayload.exp-(Date.now()/1000));
+}
+
+function isTokenExpired(token) {
+    let expirationDate = getTokenExpirationDate(token)
+    return expirationDate < new Date()
+	return false;
+}

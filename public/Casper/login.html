@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	
+	<title>Casper - by Prepaiz</title>
+
+	<script src="/Casper/lib/vue.js"></script>
+	<script src="/Casper/lib/axios.min.js"></script>
+	<script src="/Casper/lib/crypto-js.min.js"></script>
+	<script src="/Casper/lib/vue-i18n.min.js"></script>
+	<script src="/Casper/lib/vuetify.min.js"></script>
+
+	<script src="/Casper/lib/auth.js"></script>
+	<script src="/Casper/lang/login_fr.js"></script>
+	<script src="/Casper/lang/login_en.js"></script>
+	<script src="/Casper/lang/login_pt.js"></script>
+	<script src="/Casper/lang/login_es.js"></script>
+	<script src="/Casper/lang/login_vn.js"></script>
+	<script src="/Casper/lang/lang.js"></script>
+
+	<link rel="icon" id="favIcon" type="image/x-icon" href="/Casper/img/favicon.ico">
+	
+	<link rel="stylesheet" type="text/css" href="/Casper/css/login.css">
+	
+	<link rel="stylesheet" type="text/css" href="/Casper/css/font-awesome_6.2.1.min.css" >
+	<link rel="stylesheet" type="text/css" href="/Casper/css/materialsGoogle.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/montserratGoogle.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/styles.5b9620f6141c176bd318.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/home.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/vuetify.min.css" >
+	<link rel="stylesheet" type="text/css" href="/Casper/css/rectangular.min.css">
+	<link rel="stylesheet" type="text/css" href="/Casper/css/materialdesignicons.min.css">
+	<script type="text/javascript"> if(performance.navigation.type == 2){ location.reload(true); } </script>
+<style>
+</style>
+
+<body data-app>
+	<div id="appLogin">
+		<div id="login-container">
+			<div id="middle-container">
+				<img id="logo" id="logo" src="/Casper/img/Logov1.png" alt="Logo">
+
+				<div class="card">
+					<span class="title">{{ $t('login.hello') }}</span> <span class="instructions">{{ $t('login.instructions') }}</span> 
+					<form role="form" class="">
+						<div>
+							<div>
+								<div class="form-group">
+								<v-form v-model="isFormValidPassword">
+								
+									<div class="" style="margin-bottom: 20px;" >
+										<label for="login">{{ $t('login.login') }}</label> 
+												<v-text-field 
+										            v-model="login"
+					            					append-icon="mdi-account"
+            										:rules="[rules.required]"
+					            					:hint="$t('login.placeholderLogin')"
+										          ></v-text-field>
+									</div>
+
+									<div class="d-flex flex-column w-100" >
+										<div class="form-group d-flex flex-column" >
+											<div class="d-flex flex-row align-items-center justify-content-between" style="justify-content: space-between!important;">
+												<label for="password">{{ $t('login.password') }}</label>
+												<a class="help" @click="showForgotten=!showForgotten">{{ $t('login.forgotten') }}</a>
+											</div>
+											<div class="input-group">
+											
+											
+											      <v-text-field :disabled="showForgotten" @keydown.enter.exact.prevent="handleClick()"
+										            v-model="password"
+					            					:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            										:rules="showForgotten ? []: [rules.required]"
+										            :type="showPassword ? 'text' : 'password'"
+					            					:hint="$t('login.placeholderPassword')"
+										            @click:append="showPassword = !showPassword"
+										          ></v-text-field>
+
+											</div>
+										</div>
+									</div>
+									
+									<div class="" style="margin-bottom: 20px;" v-if="showForgotten" >
+										<label >{{ $t('login.question') }}</label> 
+										
+        			<v-select v-model="question" :items="questions" :rules="[rules.required]" item-value="key" style="max-width:380px">
+        			               <template v-slot:selection="{ item, index }">{{$t(item.value)}}</template>
+                  	               <template v-slot:item="{ active, item, attrs, on }">
+					                  <v-list-item v-on="on" v-bind="attrs" #default="{ active }">
+					                    <v-list-item-content>
+					                      <v-list-item-title>
+					                        <v-row no-gutters align="center">
+					                        <span>{{$t(item.value)}}</span>
+					                        </v-row>
+					                      </v-list-item-title>
+					                    </v-list-item-content>
+					                  </v-list-item>
+					                </template>
+        			</v-select>
+        			
+									</div>
+									
+									
+									<div class="" style="margin-bottom: 20px;" v-if="showForgotten">
+										<label for="answer">{{ $t('login.answer') }}</label> 
+												<v-text-field  @keydown.enter.exact.prevent="handleClick()"
+										            v-model="answer"
+            										:rules="[rules.required]"
+					            					:hint="$t('login.placeholderAnswer')"
+										          ></v-text-field>
+									</div>
+						
+									<v-alert v-if="message" dense outlined type="error" color="red" transition="fade-transition" style="color:red">{{message}}</v-alert>
+									
+									<div class="pt-4 d-flex flex-row align-items-center justify-content-center" >
+										<button type="button" class="btn-dark" @click="handleClick" :disabled="!isFormValidPassword">
+											<div class="d-flex flex-row align-items-center justify-content-center">
+												<span v-show="showSpinner"><img width="25" height="25" src="/Casper/img/loading-gif.gif" /></span>
+												<span v-show="!showSpinner">{{ $t('login.button') }}</span>
+											</div>
+										</button>
+									</div>
+									
+									
+              
+								</div>
+								</v-form>
+							</div>
+						</div>
+					</form>
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+	
+		const i18n = new VueI18n({
+		  locale: navigator.language,
+		  messages,
+		})
+	
+        var app = new Vue({
+        	i18n: i18n,
+            el: "#appLogin",
+            vuetify: new Vuetify(),
+            data: {
+            	isFormValidPassword:false,
+    	        rules: {
+    	            required: value => !!value || 'Required.',
+    	        },
+    	        questions: [
+  		          { value: 'lists.questions.firstanimalname', key: 1 },
+  		          { value: 'lists.questions.firstcarbrand', key: 2 },
+  		          { value: 'lists.questions.birthcity', key: 3 },
+		          { value: 'lists.questions.bug', key: 4 },
+  	        	],
+  	        	answer:'',
+  	        	question:0,
+  	        	showForgotten: false,
+                login:"",
+                password:"",
+                showPassword:false,
+                showSpinner:false,
+                message:""
+            },
+            beforeMount(){
+                if (isLoggedIn()) {
+                	window.location.href="home.html";
+                }
+            },
+            methods: {
+            	
+            	forgotPassword: function(){
+                    console.log("forgotten ...")
+                },
+                handleClick: function(){
+                	
+                	if (!this.isFormValidPassword) {
+                		return;
+                	}
+                	
+                	if (!this.showSpinner) {
+                        this.showSpinner=true;
+                        
+                        
+                        if (this.showForgotten) {
+
+	                        var _answer = this.answer;
+	                        
+	    					const body = 
+	    	                    axios({
+	    	                        method: 'post',
+	    	                        url: '/Casper/v1/secret',
+	    	                        data: {
+	    	                                login : this.login,
+	    	                                question: this.question,
+	    	                                answer : CryptoJS.SHA256(_answer).toString(CryptoJS.enc.Base64)
+	    	                        }
+	    	                    })
+	    	                    .then(data=>this.authSuccess(data))
+	    	                    .catch(err=>this.authFailure(err));
+	    					
+                        }
+                        else {
+                        	
+	                        var passwd = this.password;
+	                        
+	    					const body = 
+	    	                    axios({
+	    	                        method: 'post',
+	    	                        url: '/Casper/v1/auth',
+	    	                        data: {
+	    	                                login : this.login,
+	    	                                password : CryptoJS.SHA256(passwd).toString(CryptoJS.enc.Base64)
+	    	                        }
+	    	                    })
+	    	                    .then(data=>this.authSuccess(data))
+	    	                    .catch(err=>this.authFailure(err));
+                        }
+                	}
+                },
+                eyeClick: function(){
+                    this.showPassword=!this.showPassword;
+                },
+                authSuccess: function(req){
+                	localStorage.clear();
+                	setAuthInformation(req.data.jeton, this.login);
+
+                    if (isLoggedIn()) {
+                    	window.location.href="home.html";
+                    }
+                    else {
+                        this.showSpinner=false;
+                        this.message=this.$t('login.error');
+                    }
+                },
+                authFailure: function(err){
+                	localStorage.clear();
+                    this.showSpinner=false;
+                    this.message=this.$t('login.error');
+                    logoutUser();
+                },
+                changeLang: function(){
+                	this.$i18n.locale='en';
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

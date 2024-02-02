@@ -1,0 +1,1 @@
+const Offers = { template: "<div>Page d'administration des offres</div>" }
